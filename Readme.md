@@ -27,9 +27,10 @@ Before you begin, ensure you have met the following requirements:
 
 ## API Endpoints
 
-User Authentication
-POST /auth/register - Register a new user
-POST /auth/login - Log in an existing user
+### User Authentication
+
+- POST /auth/register - Register a new user
+- POST /auth/login - Log in an existing user
 
 ## Categories
 
