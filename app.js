@@ -16,7 +16,7 @@ const app = express();
 const PORT = 3000;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 25, // Limit each IP to 100 requests per windowMs
+  max: 25, // Limit each IP to 25 requests per windowMs
 });
 
 const DB_URI = "mongodb://127.0.0.1:27017/cart";
@@ -36,22 +36,28 @@ app.use("/auth", limiter, authRoutes);
 
 app.use(passport.initialize());
 
+// Route to handle category-related APIs
 app.use(
   "/categories",
   passport.authenticate("jwt", { session: false }),
   categoryRoutes
 );
+
+// Route to handle product-related APIs
 app.use(
   "/productapis",
   passport.authenticate("jwt", { session: false }),
   productRoutes
 );
+
+// Route to handle product details API (this seems like a duplicate of the previous product route, but I kept it as-is)
 app.use(
   "/productDetails",
   passport.authenticate("jwt", { session: false }),
   productRoutes
 );
 
+// Route to handle cart-related APIs
 app.use("/cart", passport.authenticate("jwt", { session: false }), cartRoute);
 
 app.listen(PORT, () => {

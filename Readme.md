@@ -35,19 +35,30 @@ Before you begin, ensure you have met the following requirements:
 ## Categories
 
 GET /categories - Get a list of all categories
+POST /categories/add - add categories to database
 
 ## Products
 
-GET /productapis/products/:categoryId - Get a list of products by category ID
-GET /productapis/products/:productId - Get product details by product ID
+- GET /productapis/products/:categoryId - Get a list of products by category ID
+- GET /productapis/products/:productId - Get product details by product ID
+- POST /productapis/products/add - Add a new product
+
+## Product details
+
+- GET /productDetails/ - get list of all products
 
 ## Shopping Cart
 
-POST /cart/add/:productId - Add a product to the shopping cart
-Order (Not Yet Implemented)
-POST /order/place - Place an order
-Order History (Not Yet Implemented)
-GET /order/history - Get order history for the logged-in user
+- POST /cart/add/:productId - Add a product to the shopping cart
+- GET /cart/ get list of all cart items
+
+  Order Placement (Not Yet Implemented)
+
+- POST /order/place - Place an order (Not Yet Implemented)
+
+  Order History (Not Yet Implemented)
+
+- GET /order/history - Get order history for the logged-in user (Not Yet Implemented)
 
 ## Sending API Requests
 

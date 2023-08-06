@@ -1,6 +1,13 @@
 // products.controller.js
 const Product = require("../Models/product.model");
 
+/**
+ * Get all products from the database.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing all products or an error message.
+ */
 async function getAllProducts(req, res) {
   try {
     const products = await Product.find({});
@@ -10,6 +17,13 @@ async function getAllProducts(req, res) {
   }
 }
 
+/**
+ * Get products by category ID from the database.
+ *
+ * @param {Object} req - Express request object containing the category ID as a URL parameter.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing products of the specified category or an error message.
+ */
 async function getProductsByCategory(req, res) {
   const categoryId = req.params.categoryId;
   try {
@@ -20,6 +34,13 @@ async function getProductsByCategory(req, res) {
   }
 }
 
+/**
+ * Get a product by its ID from the database.
+ *
+ * @param {Object} req - Express request object containing the product ID as a URL parameter.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing the product data or an error message.
+ */
 async function getProductById(req, res) {
   const productId = req.params.productId;
   try {
@@ -33,6 +54,13 @@ async function getProductById(req, res) {
   }
 }
 
+/**
+ * Create a new product.
+ *
+ * @param {Object} req - Express request object containing product data in the body.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing the created product or an error message.
+ */
 async function createProduct(req, res) {
   const { title, price, description, availability, categoryId } = req.body;
 

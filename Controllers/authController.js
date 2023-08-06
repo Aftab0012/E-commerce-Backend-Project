@@ -1,8 +1,15 @@
+// Required modules and models
 const User = require("../Models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userValSchema = require("../Validations/userValidations");
 
+/**
+ * Register a new user.
+ * @param {Object} req - Express request object containing user data in the body.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response indicating success or failure.
+ */
 const registerUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -36,6 +43,12 @@ const registerUser = async (req, res) => {
   }
 };
 
+/**
+ * Login a user.
+ * @param {Object} req - Express request object containing user data in the body.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response indicating success or failure.
+ */
 const loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -66,15 +79,27 @@ const loginUser = async (req, res) => {
   }
 };
 
+/**
+ * Get all users.
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing all users or an error message.
+ */
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
     return res.status(200).json(users);
   } catch (error) {
-    return res.status(404).json({ error: "no users found" });
+    return res.status(404).json({ error: "No users found" });
   }
 };
 
+/**
+ * Get a user by their ID.
+ * @param {Object} req - Express request object containing the user ID as a URL parameter.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing the user data or an error message.
+ */
 const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id);
@@ -83,10 +108,16 @@ const getUserById = async (req, res) => {
     }
     return res.status(200).json(user);
   } catch (error) {
-    return res.status(500).json({ error: "internal server error" });
+    return res.status(500).json({ error: "Internal server error" });
   }
 };
 
+/**
+ * Update a user by their ID.
+ * @param {Object} req - Express request object containing the user ID as a URL parameter and updated user data in the body.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response indicating success or failure.
+ */
 const updateUserById = async (req, res) => {
   try {
     const updatedUserData = await User.findByIdAndUpdate(
@@ -98,24 +129,30 @@ const updateUserById = async (req, res) => {
       }
     );
 
-    if (!updateUserById) {
-      return res.status(0).json({ message: "user not found" });
+    if (!updatedUserData) {
+      return res.status(404).json({ message: "User not found" });
     }
 
     return res.status(200).json({ updatedUserData });
   } catch (error) {
-    return res.status(500).json({ message: "updated user failed" });
+    return res.status(500).json({ message: "Failed to update user" });
   }
 };
 
+/**
+ * Delete a user by their ID.
+ * @param {Object} req - Express request object containing the user ID as a URL parameter.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response indicating success or failure.
+ */
 const deleteUser = async (req, res) => {
   const deletedUser = await User.findByIdAndDelete(req.params.id);
-  console.log("deleteted", deletedUser);
+  console.log("deleted", deletedUser);
   if (!deletedUser) {
     return res.status(500).json({ message: "User not found" });
   }
 
-  return res.status(200).json({ deleteUser });
+  return res.status(200).json({ deletedUser });
 };
 
 module.exports = {

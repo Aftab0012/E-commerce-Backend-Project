@@ -1,6 +1,13 @@
 const UserCart = require("../Models/userCart.model");
 // const User = require("../Models/user");
 
+/**
+ * Add a product to the user's cart or update its quantity if already added.
+ *
+ * @param {Object} req - Express request object containing the product ID as a URL parameter and user ID from authentication.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing the updated user cart or an error message.
+ */
 async function addToCart(req, res) {
   const productId = req.params.productId;
   const userId = req.user.id;
@@ -40,6 +47,13 @@ async function addToCart(req, res) {
   }
 }
 
+/**
+ * Get all cart items from the database.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing all cart items or an error message.
+ */
 async function getCartItems(req, res) {
   const allCartItems = await UserCart.find({});
   return res.json(allCartItems);
