@@ -32,6 +32,14 @@ Before you begin, ensure you have met the following requirements:
 - POST /auth/register - Register a new user
 - POST /auth/login - Log in an existing user
 
+```
+{
+  "username": "example_username",
+  "password": "example_password"
+}
+
+```
+
 ## Categories
 
 GET /categories - Get a list of all categories
