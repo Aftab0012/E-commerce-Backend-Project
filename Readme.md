@@ -25,12 +25,13 @@ Before you begin, ensure you have met the following requirements:
 4. Set environment variables for other configurations if needed.
 5. Start the server using npm start.
 
+## It starts on http://localhost:3000
+
 ## API Endpoints
 
 ### User Authentication
 
 - POST /auth/register - Register a new user
-- POST /auth/login - Log in an existing user
 
 ```
 {
@@ -39,6 +40,8 @@ Before you begin, ensure you have met the following requirements:
 }
 
 ```
+
+- POST /auth/login - Log in an existing user
 
 ## Categories
 
