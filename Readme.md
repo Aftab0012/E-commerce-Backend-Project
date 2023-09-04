@@ -77,12 +77,12 @@ You can use Postman or any other API client to send requests to the endpoints me
 
 For protected routes (e.g., categories, products, cart), you need to include the JWT token in the request header. Obtain the token by logging in or registering a user and use it as follows:
 
-1. Create a new header in Postman:
+- Create a new header in Postman:
 
-- Key: Authorization
-- Value: Bearer {your_jwt_token}
+1. Key: Authorization
+2. Value: Bearer {your_jwt_token}
 
-2. Send the request to the desired protected endpoint.
+- Send the request to the desired protected endpoint.
 
 ## Future Enhancements
 
