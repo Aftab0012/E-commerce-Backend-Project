@@ -17,10 +17,10 @@ const app = express();
 const PORT = 3000;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 25, // Limit each IP to 25 requests per windowMs
+  max: 3000, // Limit each IP to 25 requests per windowMs
 });
 
-const DB_URI = "mongodb://127.0.0.1:27017/cart";
+const DB_URI = process.env.DB_URI;
 mongoose
   .connect(DB_URI)
   .then(() => {
@@ -34,6 +34,7 @@ app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
+//User register/login route
 app.use("/auth", limiter, authRoutes);
 
 app.use(passport.initialize());
@@ -45,7 +46,7 @@ app.use(
   categoryRoutes
 );
 
-// Route to handle product details API.
+// Route to handle product related APIs.
 app.use(
   "/productDetails",
   passport.authenticate("jwt", { session: false }),
@@ -55,7 +56,7 @@ app.use(
 // Route to handle cart-related APIs
 app.use("/cart", passport.authenticate("jwt", { session: false }), cartRoute);
 
-//Order Place endpoints
+//Order related APIs.
 app.use(
   "/order",
   passport.authenticate("jwt", { session: false }),

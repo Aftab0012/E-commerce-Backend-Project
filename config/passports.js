@@ -1,5 +1,3 @@
-// passport.js
-
 const passport = require("passport");
 const { Strategy, ExtractJwt } = require("passport-jwt");
 const User = require("../Models/user");

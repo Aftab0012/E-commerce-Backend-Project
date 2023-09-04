@@ -1,7 +1,5 @@
-// product.model.js
 const mongoose = require("mongoose");
 
-// Define the product schema
 const productSchema = new mongoose.Schema({
   title: {
     type: String,
@@ -24,10 +22,8 @@ const productSchema = new mongoose.Schema({
     ref: "Category",
     required: true,
   },
-  // Add other fields related to the product if needed
 });
 
-// Create the Product model using the defined schema
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

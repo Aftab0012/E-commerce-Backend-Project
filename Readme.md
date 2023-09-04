@@ -7,8 +7,9 @@ Welcome to the E-Commerce API! This API provides endpoints to manage categories,
 - User registration and login with JWT authentication
 - Get list of categories and products
 - Add products to the shopping cart
-- Place an order (Not yet implemented)
-- View order history (Not yet implemented)
+- Place an order
+- View order history
+- View order details
 
 ## Prerequisites
 
@@ -43,33 +44,125 @@ Before you begin, ensure you have met the following requirements:
 
 - POST /auth/login - Log in an existing user
 
+```
+{
+  "username": "example_username",
+  "password": "example_password"
+}
+
+```
+
 ## Categories
 
 GET /categories - Get a list of all categories
+
 POST /categories/add - add categories to database
+
+```
+//add this in JSON req body in postman to send request to server
+name: {
+    type: String,
+    required: true,
+  },
+
+```
 
 ## Products
 
-- GET /productapis/products/:categoryId - Get a list of products by category ID
-- GET /productapis/products/:productId - Get product details by product ID
-- POST /productapis/products/add - Add a new product
+- GET /productDetails/products/:categoryId - Get a list of products by category ID
+- GET /productDetails/products/:productId - Get product details by product ID
+- POST /productDetails/products/add - Add a new product
 
-## Product details
+```
+//add this in JSON req body in postman to send request to server
+title: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: true,
+  },
+  availability: {
+    type: Boolean,
+    default: true,
+  },
+  categoryId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: true,
+  },
 
-- GET /productDetails/ - get list of all products
+```
 
 ## Shopping Cart
 
 - POST /cart/add/:productId - Add a product to the shopping cart
+
+```
+//add this in JSON req body in postman to send request to server
+user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the User model
+  cart: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        default: 1,
+      },
+    },
+  ],
+
+```
+
 - GET /cart/ get list of all cart items
 
-  Order Placement (Not Yet Implemented)
+  Order Placement
 
-- POST /order/place - Place an order (Not Yet Implemented)
+- POST /order/placeorder - Place an order
 
-  Order History (Not Yet Implemented)
+```
+  <!-- This post request uses loggen in users id to add user and products value  -->
 
-- GET /order/history - Get order history for the logged-in user (Not Yet Implemented)
+   user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference to the User model
+    required: true,
+  },
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product", // Reference to the Product model
+        required: true,
+      },
+      quantity: {
+        type: Number,
+        required: true,
+      },
+    },
+  ],
+  orderDate: {
+    type: Date,
+    default: Date.now,
+  },
+
+```
+
+Order History
+
+- GET /order/orderhistory - get order history
+
+  Order Details
+
+- GET /order/orderdetails - get order details
 
 ## Sending API Requests
 
@@ -80,13 +173,6 @@ For protected routes (e.g., categories, products, cart), you need to include the
 - Create a new header in Postman:
 
 1. Key: Authorization
-2. Value: Bearer {your_jwt_token}
+2. Value: Bearer Token = {your_jwt_token}
 
 - Send the request to the desired protected endpoint.
-
-## Future Enhancements
-
-- Implement the /order/place endpoint to place orders.
-- Implement the /order/history endpoint to view order history.
-
-### Feel free to contribute to the project by adding new features or improvements!

@@ -31,12 +31,36 @@ async function placeOrder(req, res) {
     userCart.cart = [];
     await userCart.save();
 
-    res.json({ message: "Order placed successfully" });
+    res.json({ message: "Order placed successfully", order });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }
 }
 
+async function getOrderHistory(req, res) {
+  const user = req.user.id;
+  try {
+    const getOrderHistory = await Order.find({ user: user }).populate(
+      "products.productId"
+    );
+    res.status(201).json(getOrderHistory);
+  } catch (error) {
+    res.status(404).json({ message: "No order History available" });
+  }
+}
+
+async function getOrderDetails(req, res) {
+  const orderId = req.params.id;
+  try {
+    const getOrderDetails = await Order.findOne({ _id: orderId });
+    res.status(201).json(getOrderDetails);
+  } catch (error) {
+    res.status(404).json({ message: "No such order found" });
+  }
+}
+
 module.exports = {
   placeOrder,
+  getOrderHistory,
+  getOrderDetails,
 };
