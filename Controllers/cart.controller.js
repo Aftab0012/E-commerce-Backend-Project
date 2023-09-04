@@ -48,6 +48,44 @@ async function addToCart(req, res) {
 }
 
 /**
+ * Remove a product from the user's cart.
+ *
+ * @param {Object} req - Express request object containing the product ID as a URL parameter and user ID from authentication.
+ * @param {Object} res - Express response object to send the response.
+ * @returns {Object} - JSON response containing the updated user cart after removing the item or an error message.
+ */
+async function removeFromCart(req, res) {
+  const productId = req.params.productId;
+  const userId = req.user.id;
+
+  try {
+    // Find the user cart based on the user ID
+    const userCart = await UserCart.findOne({ user: userId });
+
+    if (!userCart) {
+      return res.status(404).json({ message: "Cart not found" });
+    }
+
+    // Check if the product exists in the cart
+    const cartItemIndex = userCart.cart.findIndex(
+      (item) => item.productId.toString() === productId
+    );
+
+    if (cartItemIndex === -1) {
+      return res.status(404).json({ message: "Product not found in cart" });
+    }
+
+    // Remove the product from the cart
+    userCart.cart.splice(cartItemIndex, 1);
+
+    await userCart.save();
+    res.json(userCart.cart);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+}
+
+/**
  * Get all cart items from the database.
  *
  * @param {Object} req - Express request object.
@@ -61,5 +99,6 @@ async function getCartItems(req, res) {
 
 module.exports = {
   addToCart,
+  removeFromCart,
   getCartItems,
 };

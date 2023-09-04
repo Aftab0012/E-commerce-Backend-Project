@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  cartId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart", // Reference to the Cart model
-  },
+  // cartId: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Cart", // Reference to the Cart model
+  // },
 });
 
 // Create the User model using the defined schema

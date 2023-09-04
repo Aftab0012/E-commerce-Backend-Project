@@ -126,6 +126,7 @@ const updateUserById = async (req, res) => {
       {
         new: true,
         runValidators: true,
+        upsert: true,
       }
     );
 

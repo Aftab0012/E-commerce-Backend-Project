@@ -9,6 +9,7 @@ const authRoutes = require("./Routes/authRoutes");
 const categoryRoutes = require("./Routes/categoryRoutes");
 const productRoutes = require("./Routes/product.route");
 const cartRoute = require("./Routes/cart.Route");
+const ordersRoute = require("./Routes/orderRoutes");
 const passport = require("./config/passports");
 const rateLimit = require("express-rate-limit");
 
@@ -32,6 +33,7 @@ mongoose
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
 app.use("/auth", limiter, authRoutes);
 
 app.use(passport.initialize());
@@ -43,14 +45,7 @@ app.use(
   categoryRoutes
 );
 
-// Route to handle product-related APIs
-app.use(
-  "/productapis",
-  passport.authenticate("jwt", { session: false }),
-  productRoutes
-);
-
-// Route to handle product details API (this seems like a duplicate of the previous product route, but I kept it as-is)
+// Route to handle product details API.
 app.use(
   "/productDetails",
   passport.authenticate("jwt", { session: false }),
@@ -59,6 +54,13 @@ app.use(
 
 // Route to handle cart-related APIs
 app.use("/cart", passport.authenticate("jwt", { session: false }), cartRoute);
+
+//Order Place endpoints
+app.use(
+  "/order",
+  passport.authenticate("jwt", { session: false }),
+  ordersRoute
+);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
