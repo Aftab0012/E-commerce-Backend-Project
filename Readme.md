@@ -137,7 +137,7 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
 
 - GET /cart/ get list of all cart items
 
-  Order Placement
+## Order Placement
 
 - POST /order/placeorder - Place an order
 
@@ -169,7 +169,7 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
 
 ```
 
-Order History
+## Order History
 
 - GET /order/orderhistory - get order history
 
