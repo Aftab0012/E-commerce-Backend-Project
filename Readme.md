@@ -173,6 +173,6 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
 
 - GET /order/orderhistory - get order history
 
-  Order Details
+## Order Details
 
 - GET /order/orderdetails - get order details
