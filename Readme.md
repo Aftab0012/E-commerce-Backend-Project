@@ -32,6 +32,19 @@ Before you begin, ensure you have met the following requirements:
 
 ### User Authentication
 
+## Sending API Requests
+
+You can use Postman or any other API client to send requests to the endpoints mentioned above. Make sure to set the request type, URL, and provide the necessary parameters or request body as required by each endpoint.
+
+For protected routes (e.g., categories, products, cart), you need to include the JWT token in the request header. Obtain the token by logging in or registering a user and use it as follows:
+
+- Create a new header in Postman:
+
+1. Key: Authorization
+2. Value: Bearer Token = {your_jwt_token}
+
+### Send the request to the desired protected endpoint.
+
 - POST /auth/register - Register a new user
 
 ```
@@ -163,16 +176,3 @@ Order History
   Order Details
 
 - GET /order/orderdetails - get order details
-
-## Sending API Requests
-
-You can use Postman or any other API client to send requests to the endpoints mentioned above. Make sure to set the request type, URL, and provide the necessary parameters or request body as required by each endpoint.
-
-For protected routes (e.g., categories, products, cart), you need to include the JWT token in the request header. Obtain the token by logging in or registering a user and use it as follows:
-
-- Create a new header in Postman:
-
-1. Key: Authorization
-2. Value: Bearer Token = {your_jwt_token}
-
-- Send the request to the desired protected endpoint.
