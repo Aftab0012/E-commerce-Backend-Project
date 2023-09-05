@@ -132,11 +132,11 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
       },
     },
   ],
-
-- POST /remove/:productId  this route used to remove product from cart
-
 ```
 
+- POST /remove/:productId this route used to remove product from cart
+
+```
 it takes the product \_id and removes it from logged in users cart
 
 ```
@@ -144,9 +144,7 @@ it takes the product \_id and removes it from logged in users cart
 - GET /cart/ get list of all cart items
 
 ```
-
 it returns JSON list of all cart items available in cart
-
 ```
 
 ## Order Placement
@@ -192,6 +190,7 @@ default: Date.now,
 it check and finds the user by its useId in order schema and return the placed orders history
 
 ```
+
 ## Order Details
 
 - GET /order/orderdetails - get order details
@@ -199,7 +198,5 @@ it check and finds the user by its useId in order schema and return the placed o
 ```
 
 it takes the order \_id of specific order and returns the order details
-
-```
 
 ```
