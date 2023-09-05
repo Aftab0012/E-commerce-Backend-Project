@@ -83,7 +83,19 @@ name: {
 ## Products
 
 - GET /productDetails/products/:categoryId - Get a list of products by category ID
+
+```
+return json of product details by category id
+
+```
+
 - GET /productDetails/products/:productId - Get product details by product ID
+
+```
+return json of product details
+
+```
+
 - POST /productDetails/products/add - Add a new product
 
 ```
@@ -117,21 +129,14 @@ title: {
 - POST /cart/add/:productId - Add a product to the shopping cart
 
 ```
-//add this in JSON req body in postman to send request to server
-user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the User model
-  cart: [
+// Response will look like this after you add the product in cart
+[
     {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        default: 1,
-      },
-    },
-  ],
+        "productId": "64f7153f615ac560168f0d53",
+        "quantity": 2,
+        "_id": "64f7166b615ac560168f0d5a"
+    }
+]
 ```
 
 - POST /remove/:productId this route used to remove product from cart
@@ -145,6 +150,25 @@ it takes the product \_id and removes it from logged in users cart
 
 ```
 it returns JSON list of all cart items available in cart
+
+    {
+        "_id": "64f7166b615ac560168f0d59",
+        "user": "64f711ad10782bfb815c243d",
+        "cart": [
+            {
+                "productId": "64f7153f615ac560168f0d53",
+                "quantity": 2,
+                "_id": "64f7166b615ac560168f0d5a"
+            },
+            {
+                "productId": "64cf9150ac25736b4c0f5f10",
+                "quantity": 1,
+                "_id": "64f71751615ac560168f0d65"
+            }
+        ],
+        "__v": 1
+    }
+]
 ```
 
 ## Order Placement
