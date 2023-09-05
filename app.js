@@ -1,4 +1,3 @@
-// app.js
 require("dotenv").config();
 
 const express = require("express");
@@ -12,12 +11,14 @@ const cartRoute = require("./Routes/cart.Route");
 const ordersRoute = require("./Routes/orderRoutes");
 const passport = require("./config/passports");
 const rateLimit = require("express-rate-limit");
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 const PORT = 3000;
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 3000, // Limit each IP to 25 requests per windowMs
+  max: 3000, // Limit each IP to 3000 requests per windowMs
 });
 
 const DB_URI = process.env.DB_URI;
@@ -48,7 +49,7 @@ app.use(
 
 // Route to handle product related APIs.
 app.use(
-  "/productDetails",
+  "/products",
   passport.authenticate("jwt", { session: false }),
   productRoutes
 );

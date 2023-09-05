@@ -133,39 +133,53 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
     },
   ],
 
+- POST /remove/:productId  this route used to remove product from cart
+
+```
+
+it takes the product \_id and removes it from logged in users cart
+
 ```
 
 - GET /cart/ get list of all cart items
+
+```
+
+it returns JSON list of all cart items available in cart
+
+```
 
 ## Order Placement
 
 - POST /order/placeorder - Place an order
 
 ```
-  <!-- This post request uses loggen in users id to add user and products value  -->
 
-   user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // Reference to the User model
-    required: true,
-  },
-  products: [
-    {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product", // Reference to the Product model
-        required: true,
-      },
-      quantity: {
-        type: Number,
-        required: true,
-      },
-    },
-  ],
-  orderDate: {
-    type: Date,
-    default: Date.now,
-  },
+  <!-- This post request uses logged in users id to find userCart and add it to the order schamas products field  -->
+  <!-- This post request uses logged in users id to add user and products value  -->
+
+user: {
+type: mongoose.Schema.Types.ObjectId,
+ref: "User", // Reference to the User model
+required: true,
+},
+products: [
+{
+productId: {
+type: mongoose.Schema.Types.ObjectId,
+ref: "Product", // Reference to the Product model
+required: true,
+},
+quantity: {
+type: Number,
+required: true,
+},
+},
+],
+orderDate: {
+type: Date,
+default: Date.now,
+},
 
 ```
 
@@ -173,6 +187,19 @@ user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, // Reference to the
 
 - GET /order/orderhistory - get order history
 
+```
+
+it check and finds the user by its useId in order schema and return the placed orders history
+
+```
 ## Order Details
 
 - GET /order/orderdetails - get order details
+
+```
+
+it takes the order \_id of specific order and returns the order details
+
+```
+
+```
