@@ -69,6 +69,11 @@ For protected routes (e.g., categories, products, cart), you need to include the
 
 GET /categories - Get a list of all categories
 
+```
+return sjson of all available categories
+
+```
+
 POST /categories/add - add categories to database
 
 ```
